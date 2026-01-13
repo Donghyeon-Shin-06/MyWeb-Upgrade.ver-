@@ -228,6 +228,15 @@
 
     renderHistory();
     clearAll();
+    <script>
+  const v = JSON.parse(localStorage.getItem("dh_page_visits") || "{}");
+  v.calculator = (v.calculator || 0) + 1;
+  localStorage.setItem("dh_page_visits", JSON.stringify(v));
   </script>
+
+  </script>
+  
 </body>
 </html>
+
+
