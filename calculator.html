@@ -228,12 +228,10 @@
 
     renderHistory();
     clearAll();
-    <script>
-  const v = JSON.parse(localStorage.getItem("dh_page_visits") || "{}");
-  v.calculator = (v.calculator || 0) + 1;
-  localStorage.setItem("dh_page_visits", JSON.stringify(v));
-  </script>
-
+    // ✅ 방문수 +1 (calculator)
+    const v = JSON.parse(localStorage.getItem("dh_page_visits") || "{}");
+    v.calculator = (v.calculator || 0) + 1;
+    localStorage.setItem("dh_page_visits", JSON.stringify(v));
   </script>
   
 </body>
