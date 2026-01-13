@@ -146,35 +146,33 @@
       </div>
     </div>
   </div>
-  <script>
-    // 연락처 복사 버튼
-    document.querySelectorAll(".copyBtn").forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        const text = btn.getAttribute("data-copy");
+ <script>
+  // 연락처 복사 버튼
+  document.querySelectorAll(".copyBtn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const text = btn.getAttribute("data-copy");
 
-        try {
-          await navigator.clipboard.writeText(text);
-          btn.textContent = "복사됨!";
-        } catch (e) {
-          // fallback (일부 브라우저/환경 대비)
-          const ta = document.createElement("textarea");
-          ta.value = text;
-          document.body.appendChild(ta);
-          ta.select();
-          document.execCommand("copy");
-          ta.remove();
-          btn.textContent = "복사됨!";
-        }
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = "복사됨!";
+      } catch (e) {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+        btn.textContent = "복사됨!";
+      }
 
-        setTimeout(() => (btn.textContent = "복사"), 900);
-      });
+      setTimeout(() => (btn.textContent = "복사"), 900);
     });
-  <script>
+  });
+
+  //  방문수 +1 (about)
   const v = JSON.parse(localStorage.getItem("dh_page_visits") || "{}");
   v.about = (v.about || 0) + 1;
   localStorage.setItem("dh_page_visits", JSON.stringify(v));
-  </script>
-
-  </script>
+</script>
 </body>
 </html>
