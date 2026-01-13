@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>계산기</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-slate-950 text-slate-100 selection:bg-indigo-500/30">
+  <div class="pointer-events-none fixed inset-0 -z-10">
+    <div class="absolute inset-0 bg-[radial-gradient(900px_circle_at_20%_15%,rgba(99,102,241,0.22),transparent_60%),radial-gradient(800px_circle_at_85%_35%,rgba(16,185,129,0.14),transparent_55%),radial-gradient(900px_circle_at_40%_90%,rgba(236,72,153,0.10),transparent_55%)]"></div>
+    <div class="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:48px_48px]"></div>
+  </div>
+
+  <div class="mx-auto max-w-6xl px-4 pb-16">
+    <!-- 상단 메뉴 (원래 스타일 유지) -->
+    <header class="sticky top-0 z-50">
+      <div class="mt-4 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_20px_80px_-35px_rgba(0,0,0,.8)]">
+        <div class="flex items-center justify-between px-5 py-4">
+          <div class="flex items-center gap-3">
+            <div class="h-9 w-9 rounded-xl bg-white/10 border border-white/10 grid place-items-center">
+              <span class="text-sm font-bold">DH</span>
+            </div>
+            <a href="index.html" class="font-semibold tracking-tight">My Homepage</a>
+          </div>
+
+          <div class="flex gap-2">
+            <a href="index.html" class="rounded-xl px-4 py-2 text-sm font-medium text-slate-200/90 border border-transparent hover:bg-white/10 hover:border-white/10 transition">홈</a>
+            <a href="calculator.html" class="rounded-xl px-4 py-2 text-sm font-medium text-slate-200/90 border border-white/10 bg-white/10 hover:bg-white/10 transition">계산기</a>
+            <a href="about.html" class="rounded-xl px-4 py-2 text-sm font-medium text-slate-200/90 border border-transparent hover:bg-white/10 hover:border-white/10 transition">자기소개</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="mt-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 md:p-8 shadow-[0_30px_120px_-60px_rgba(0,0,0,.95)]">
+      <div class="flex items-end justify-between flex-wrap gap-4">
+        <div>
+          <h1 class="text-2xl md:text-3xl font-bold tracking-tight">계산기</h1>
+          <p class="mt-2 text-slate-300/90">= 을 누르면 계산 기록이 저장됩니다.</p>
+        </div>
+        <button id="clearHistory"
+          class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-bold hover:bg-white/10 transition">
+          기록 삭제
+        </button>
+      </div>
+
+      <div class="mt-8 grid gap-6 lg:grid-cols-[1fr_360px] items-start">
+        <!-- 계산기 -->
+        <section class="rounded-3xl border border-white/10 bg-white/5 p-5 md:p-6">
+          <div class="mx-auto w-full max-w-[420px] bg-white rounded-xl shadow-sm border border-gray-200">
+            <div class="p-4 sm:p-5">
+              <h5 class="text-center mb-3 text-base sm:text-lg font-semibold text-black">
+                Calculator
+              </h5>
+
+              <input id="display" type="text"
+                     class="w-full text-right text-black sm:text-2xl px-3 sm:px-4 py-2 sm:py-3 mb-3 rounded-lg border border-gray-300 bg-white focus:outline-none"
+                     value="0" readonly />
+
+              <div class="keys grid grid-cols-4 gap-2 sm:gap-3">
+                <button class="h-10 sm:h-11 rounded-lg border border-gray-600 text-gray-700 hover:bg-blue-50" data-key="7">7</button>
+                <button class="h-10 sm:h-11 rounded-lg border border-gray-600 text-gray-700 hover:bg-blue-50" data-key="8">8</button>
+                <button class="h-10 sm:h-11 rounded-lg border border-gray-600 text-gray-700 hover:bg-blue-50" data-key="9">9</button>
+                <button class="h-10 sm:h-11 rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-100" data-key="÷">÷</button>
+
+                <button class="h-10 sm:h-11 rounded-lg border border-gray-600 text-gray-700 hover:bg-blue-50" data-key="4">4</button>
+                <button class="h-10 sm:h-11 rounded-lg border border-gray-600 text-gray-700 hover:bg-blue-50" data-key="5">5</button>
+                <button class="h-10 sm:h-11 rounded-lg border border-gray-600 text-gray-700 hover:bg-blue-50" data-key="6">6</button>
+                <button class="h-10 sm:h-11 rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-100" data-key="×">×</button>
+
+                <button class="h-10 sm:h-11 rounded-lg border border-gray-600 text-gray-700 hover:bg-blue-50" data-key="1">1</button>
+                <button class="h-10 sm:h-11 rounded-lg border border-gray-600 text-gray-700 hover:bg-blue-50" data-key="2">2</button>
+                <button class="h-10 sm:h-11 rounded-lg border border-gray-600 text-gray-700 hover:bg-blue-50" data-key="3">3</button>
+                <button class="h-10 sm:h-11 rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-100" data-key="-">-</button>
+
+                <button class="col-span-2 h-10 sm:h-11 rounded-lg border border-blue-600 text-gray-700 hover:bg-blue-50" data-key="0">0</button>
+                <button class="h-10 sm:h-11 rounded-lg border border-blue-600 bg-yellow-400 text-gray-900 font-semibold hover:bg-yellow-500" data-key="C">C</button>
+                <button class="h-10 sm:h-11 rounded-lg border border-blue-600 bg-green-600 text-white font-semibold hover:bg-green-700" data-key="=">=</button>
+                <button class="h-10 sm:h-11 rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-100" data-key="+">+</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 기록 -->
+        <aside class="rounded-3xl border border-white/10 bg-white/5 p-5 md:p-6">
+          <h2 class="text-lg font-extrabold">History</h2>
+          <p class="mt-2 text-sm text-slate-300">최근 10개까지 저장됩니다.</p>
+          <div id="historyBox" class="mt-4 space-y-2"></div>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    
+    const display = document.getElementById("display");
+    const keys = document.querySelector(".keys");
+
+    let first = null;
+    let op = null;
+    let waitingSecond = false;
+
+    function setDisplay(v) { display.value = String(v); }
+
+    function inputDigit(d) {
+      if (waitingSecond) {
+        setDisplay(d);
+        waitingSecond = false;
+        return;
+      }
+      const cur = display.value;
+      setDisplay(cur === "0" ? d : cur + d);
+    }
+
+    function clearAll() {
+      first = null;
+      op = null;
+      waitingSecond = false;
+      setDisplay("0");
+    }
+
+    function compute(a, operator, b) {
+      if (operator === "+") return a + b;
+      if (operator === "-") return a - b;
+      if (operator === "×") return a * b;
+      if (operator === "÷") return b === 0 ? "Error" : a / b;
+      return b;
+    }
+
+    function handleOperator(nextOp) {
+      const cur = Number(display.value);
+
+      if (first === null) {
+        first = cur;
+      } else if (op && !waitingSecond) {
+        const result = compute(first, op, cur);
+        if (result === "Error") {
+          setDisplay("Error");
+          first = null;
+          op = null;
+          waitingSecond = true;
+          return;
+        }
+        first = result;
+        setDisplay(result);
+      }
+
+      op = nextOp;
+      waitingSecond = true;
+    }
+
+    // ====== 기록 저장 기능 추가 ======
+    const HKEY = "dh_calc_history"; // [{exp, result}]
+    const historyBox = document.getElementById("historyBox");
+    const clearHistoryBtn = document.getElementById("clearHistory");
+
+    function loadHistory() {
+      try { return JSON.parse(localStorage.getItem(HKEY) || "[]"); }
+      catch { return []; }
+    }
+
+    function saveHistory(list) {
+      localStorage.setItem(HKEY, JSON.stringify(list.slice(0, 10)));
+    }
+
+    function addHistory(exp, result) {
+      const list = loadHistory();
+      list.unshift({ exp: exp, result: result });
+      saveHistory(list);
+      renderHistory();
+    }
+
+    function renderHistory() {
+      const list = loadHistory();
+      if (list.length === 0) {
+        historyBox.innerHTML = `<p class="text-sm text-slate-300">기록이 없습니다.</p>`;
+        return;
+      }
+      historyBox.innerHTML = list.map(item => `
+        <div class="rounded-2xl bg-black/20 p-3 ring-1 ring-white/10">
+          <p class="text-xs text-slate-400">${item.exp}</p>
+          <p class="text-sm font-bold">${item.result}</p>
+        </div>
+      `).join("");
+    }
+
+    function doEqual() {
+      if (op === null || first === null) return;
+      const cur = Number(display.value);
+
+      const result = compute(first, op, cur);
+      if (result === "Error") {
+        setDisplay("Error");
+        first = null;
+        op = null;
+        waitingSecond = true;
+        return;
+      }
+
+      // 여기서 기록 저장
+      const exp = `${first} ${op} ${cur}`;
+      setDisplay(result);
+      addHistory(exp, result);
+
+      first = result;
+      waitingSecond = true;
+    }
+
+    keys.addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+
+      const key = btn.dataset.key;
+
+      if (key >= "0" && key <= "9") inputDigit(key);
+      else if (key === "C") clearAll();
+      else if (key === "=") doEqual();
+      else if (key === "+" || key === "-" || key === "×" || key === "÷") handleOperator(key);
+    });
+
+    clearHistoryBtn.addEventListener("click", () => {
+      localStorage.removeItem(HKEY);
+      renderHistory();
+    });
+
+    renderHistory();
+    clearAll();
+  </script>
+</body>
+</html>
